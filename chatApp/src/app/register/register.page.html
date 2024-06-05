@@ -1,0 +1,152 @@
+<ion-content>
+  <div class="container">
+    <div class="forms-container">
+      <div class="signin-signup">
+        <form *ngIf="!otpSent" class="sign-in-form" (ngSubmit)="login()">
+          <h2 class="title">Sign in</h2>
+          <div class="input-field">
+            <i class="fas fa-user"></i>
+            <div class="form-group">
+              <input type="email" [(ngModel)]="email" name="email" required placeholder="Email" />
+            </div>
+          </div>
+          <div class="input-field">
+            <i class="fas fa-lock"></i>
+            <div class="form-group">
+              <input type="password" [(ngModel)]="password" name="password" required placeholder="Password" />
+            </div>
+          </div>
+          <ion-button type="submit" expand="block" class="btn solid">Login</ion-button>
+          <p class="social-text">Or Sign in with social platforms</p>
+          <div class="social-media">
+            <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-google"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+          </div>
+        </form>
+        
+        <form *ngIf="!otpSent" [formGroup]="registerForm" class="sign-up-form" (ngSubmit)="onRegister()">
+          <h2 class="title">Sign up</h2>
+          <div class="input-field">
+            <i class="fas fa-user"></i>
+            <div class="form-group">
+              <input id="username" formControlName="username" type="text" placeholder="Username" />
+            </div>
+            <ion-icon *ngIf="registerForm.get('username')?.valid && (registerForm.get('username')?.dirty || registerForm.get('username')?.touched)" name="checkmark-circle" slot="end" color="success" class="input-icon"></ion-icon>
+            <ion-icon *ngIf="registerForm.get('username')?.invalid && (registerForm.get('username')?.dirty || registerForm.get('username')?.touched)" name="close-circle" slot="end" color="danger" class="input-icon"></ion-icon>
+          </div>
+          <div *ngIf="registerForm.get('username')?.errors && (registerForm.get('username')?.dirty || registerForm.get('username')?.touched)" class="error-message">
+            <div *ngIf="registerForm.get('username')?.hasError('required')">Username is required.</div>
+            <div *ngIf="registerForm.get('username')?.hasError('minlength')">Username must be at least 3 characters long.</div>
+            <div *ngIf="registerForm.get('username')?.hasError('maxlength')">Username cannot exceed 20 characters.</div>
+            <div *ngIf="registerForm.get('username')?.hasError('pattern')">Username can only contain lowercase letters, numbers, and underscores.</div>
+            <div *ngIf="registerForm.get('username')?.hasError('usernameTaken')">Username is already taken.</div>
+          </div>
+
+          <div class="input-field">
+            <i class="fas fa-envelope"></i>
+            <div class="form-group">
+              <input id="fullName" formControlName="fullName" type="text" placeholder="Full Name" />
+            </div>
+          </div>
+          <div *ngIf="registerForm.get('fullName')?.hasError('required') && registerForm.get('fullName')?.touched" class="error-message">Full Name is required.</div>
+          
+          <div class="input-field">
+            <i class="fas fa-envelope"></i>
+            <div class="form-group">
+              <input id="email" formControlName="email" type="email" placeholder="Email" />
+            </div>
+            <ion-icon *ngIf="registerForm.get('email')?.valid && (registerForm.get('email')?.dirty || registerForm.get('email')?.touched)" name="checkmark-circle" slot="end" color="success" class="input-icon"></ion-icon>
+            <ion-icon *ngIf="registerForm.get('email')?.invalid && (registerForm.get('email')?.dirty || registerForm.get('email')?.touched)" name="close-circle" slot="end" color="danger" class="input-icon"></ion-icon>
+          </div>
+          <div *ngIf="registerForm.get('email')?.hasError('required') && registerForm.get('email')?.touched" class="error-message">Email is required.</div>
+          <div *ngIf="registerForm.get('email')?.hasError('email') && registerForm.get('email')?.touched" class="error-message">Invalid email address.</div>
+          <div *ngIf="registerForm.get('email')?.hasError('emailTaken')" class="error-message">Email is already in use.</div>
+
+          <div class="input-field">
+            <i class="fas fa-lock"></i>
+            <div class="form-group">
+              <input id="password" formControlName="password" type="password" placeholder="Password" />
+            </div>
+            <ion-icon *ngIf="registerForm.get('password')?.valid && (registerForm.get('password')?.dirty || registerForm.get('password')?.touched)" name="checkmark-circle" slot="end" color="success" class="input-icon"></ion-icon>
+            <ion-icon *ngIf="registerForm.get('password')?.invalid && (registerForm.get('password')?.dirty || registerForm.get('password')?.touched)" name="close-circle" slot="end" color="danger" class="input-icon"></ion-icon>
+          </div>
+          <div *ngIf="registerForm.get('password')?.hasError('required') && registerForm.get('password')?.touched" class="error-message">Password is required.</div>
+          <div *ngIf="registerForm.get('password')?.hasError('minlength') && registerForm.get('password')?.touched" class="error-message">Password must be at least 8 characters long.</div>
+
+          <div class="input-field full-width">
+            <i class="fas fa-building"></i>
+            <div class="form-group">
+              <ion-select id="department" formControlName="department" class="custom-select" interface="popover" placeholder="Select Your Department">
+      
+                <ion-select-option value="" disabled selected hidden>Select Your Department</ion-select-option>
+                <ion-select-option value="03A School of International Studies">03A School of International Studies</ion-select-option>
+                <ion-select-option value="03B Lovely Institute of Technology (Pharmacy)">03B Lovely Institute of Technology (Pharmacy)</ion-select-option>
+                <ion-select-option value="08A School of Architecture & Design">08A School of Architecture & Design</ion-select-option>
+                <ion-select-option value="08B School of Pharmaceutical Sciences">08B School of Pharmaceutical Sciences</ion-select-option>
+                <ion-select-option value="School of Arts & Languages">School of Arts & Languages</ion-select-option>
+                <ion-select-option value="School of Fashion Design">School of Fashion Design</ion-select-option>
+                <ion-select-option value="14 School of Business">14 School of Business</ion-select-option>
+                <ion-select-option value="158 School of Hotel Management & Tourism">158 School of Hotel Management & Tourism</ion-select-option>
+                <ion-select-option value="18 Department of Physical Education">18 Department of Physical Education</ion-select-option>
+                <ion-select-option value="25 School of Biotechnology & Biosciences">25 School of Biotechnology & Biosciences</ion-select-option>
+                <ion-select-option value="26 School of Electronics & Electrical Engineering">26 School of Electronics & Electrical Engineering</ion-select-option>
+                <ion-select-option value="27 School of Physical Sciences">27 School of Physical Sciences</ion-select-option>
+                <ion-select-option value="28 School of Agriculture">28 School of Agriculture</ion-select-option>
+                <ion-select-option value="33 School of Electronics & Electrical Engineering">33 School of Electronics & Electrical Engineering</ion-select-option>
+                <ion-select-option value="34 School of Computer Science & Engineering">34 School of Computer Science & Engineering</ion-select-option>
+                <ion-select-option value="35 Shanti Devi Mittal Auditorium">35 Shanti Devi Mittal Auditorium</ion-select-option>
+                <ion-select-option value="36 School of Electronics & Electrical Engineering">36 School of Electronics & Electrical Engineering</ion-select-option>
+                <ion-select-option value="38 School of Computer Application / Research Center">38 School of Computer Application / Research Center</ion-select-option>
+                <ion-select-option value="55 School of Mechanical Engineering">55 School of Mechanical Engineering</ion-select-option>
+                <ion-select-option value="56 School of Civil Engineering">56 School of Civil Engineering</ion-select-option>
+                <ion-select-option value="57 School of Polytechnic">57 School of Polytechnic</ion-select-option>
+              </ion-select>
+            </div>
+          </div>
+          <div *ngIf="registerForm.get('department')?.hasError('required') && registerForm.get('department')?.touched" class="error-message">Department is required.</div>
+
+          <ion-button type="submit" expand="block" class="btn">Register</ion-button>
+          <p class="social-text">Or Sign up with social platforms</p>
+          <div class="social-media">
+            <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-google"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+          </div>
+        </form>
+        
+        <form *ngIf="otpSent" [formGroup]="otpForm" (ngSubmit)="onVerifyOtp()">
+          <h2 class="title">Verify OTP</h2>
+          <div class="input-field">
+            <i class="fas fa-envelope"></i>
+            <div class="form-group">
+              <input formControlName="otp" type="text" placeholder="Enter OTP" />
+            </div>
+          </div>
+          <ion-button type="submit" expand="block" class="btn">Verify OTP</ion-button>
+        </form>
+      </div>
+    </div>
+    
+    <div class="panels-container">
+      <div class="panel left-panel">
+        <div class="content">
+          <h3>New to our community?</h3>
+          <p>Discover a world of possibilities! Join us and explore a vibrant community where ideas flourish and connections thrive.</p>
+          <button class="btn transparent" id="sign-up-btn">Sign up</button>
+        </div>
+        <img src="https://i.ibb.co/6HXL6q1/Privacy-policy-rafiki.png" class="image" alt="" />
+      </div>
+      <div class="panel right-panel">
+        <div class="content">
+          <h3>One of Our Valued Members</h3>
+          <p>Thank you for being part of our community. Your presence enriches our shared experiences. Let's continue this journey together!</p>
+          <button class="btn transparent" id="sign-in-btn">Sign in</button>
+        </div>
+        <img src="https://i.ibb.co/nP8H853/Mobile-login-rafiki.png" class="image" alt="" />
+      </div>
+    </div>
+  </div>
+</ion-content>

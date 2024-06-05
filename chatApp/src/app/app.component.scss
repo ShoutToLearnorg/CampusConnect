@@ -1,0 +1,18 @@
+/* Global styles file (global.scss or variables.scss) */
+
+/* Active tab color */
+ion-tab-bar {
+    --color-selected: #F86F03;
+  }
+  
+  /* Hover color for tab icons */
+  ion-tab-button {
+    ion-icon {
+      transition: color 0.3s ease;
+    }
+  
+    &:hover ion-icon {
+      color: #F86F03;
+    }
+  }
+  

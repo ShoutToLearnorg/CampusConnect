@@ -1,0 +1,51 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Chat</ion-title>
+    <ion-buttons slot="end">
+      <ion-avatar (click)="toggleDropdown()" class="profile-avatar">
+        <img [src]="getProfilePictureUrl(currentUser)" alt="Profile Picture">
+      </ion-avatar>
+      <div class="dropdown" *ngIf="isDropdownOpen">
+        <p>Hello, {{ currentUser.fullName }}!</p>
+        <ion-button expand="full" (click)="goToEditProfile()">Edit Profile</ion-button>
+      </div>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-searchbar [(ngModel)]="searchTerm" (ionInput)="filterUsers()"></ion-searchbar>
+
+  <ion-list>
+    <ion-item *ngFor="let user of filteredUsers" (click)="openChat(user)">
+      <ion-avatar slot="start">
+        <img [src]="getProfilePictureUrl(user)" alt="Profile Picture">
+      </ion-avatar>
+      <ion-label>
+        <h2>{{ user.fullName }}</h2>
+        <p>{{ user.username }}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <div *ngIf="selectedUser" class="chat-container">
+    <div class="chat-header">
+      <ion-avatar slot="start">
+        <img [src]="getProfilePictureUrl(selectedUser)" alt="Profile Picture">
+      </ion-avatar>
+      <ion-label>
+        <h2>{{ selectedUser.fullName }}</h2>
+        <p>{{ selectedUser.username }}</p>
+      </ion-label>
+    </div>
+
+    <div class="chat-messages">
+      <!-- Chat messages will be displayed here -->
+    </div>
+
+    <div class="chat-input">
+      <ion-input [(ngModel)]="newMessage" placeholder="Type a message"></ion-input>
+      <ion-button (click)="sendMessage()">Send</ion-button>
+    </div>
+  </div>
+</ion-content>

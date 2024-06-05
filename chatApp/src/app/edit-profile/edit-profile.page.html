@@ -1,0 +1,48 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>User Profile</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="profileForm" (ngSubmit)="updateProfile()">
+    <ion-item>
+      <ion-label position="stacked">Full Name</ion-label>
+      <ion-input formControlName="fullName" name="fullName" required></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Department</ion-label>
+      <ion-select formControlName="department" interface="popover" placeholder="Select Your Department">
+        <ion-select-option value="" disabled selected hidden>Select Your Department</ion-select-option>
+        <ion-select-option value="03A School of International Studies">03A School of International Studies</ion-select-option>
+        <ion-select-option value="03B Lovely Institute of Technology (Pharmacy)">03B Lovely Institute of Technology (Pharmacy)</ion-select-option>
+        <ion-select-option value="08A School of Architecture & Design">08A School of Architecture & Design</ion-select-option>
+        <ion-select-option value="08B School of Pharmaceutical Sciences">08B School of Pharmaceutical Sciences</ion-select-option>
+        <ion-select-option value="School of Arts & Languages">School of Arts & Languages</ion-select-option>
+        <ion-select-option value="School of Fashion Design">School of Fashion Design</ion-select-option>
+        <ion-select-option value="14 School of Business">14 School of Business</ion-select-option>
+        <ion-select-option value="158 School of Hotel Management & Tourism">158 School of Hotel Management & Tourism</ion-select-option>
+        <ion-select-option value="18 Department of Physical Education">18 Department of Physical Education</ion-select-option>
+        <ion-select-option value="25 School of Biotechnology & Biosciences">25 School of Biotechnology & Biosciences</ion-select-option>
+        <ion-select-option value="26 School of Electronics & Electrical Engineering">26 School of Electronics & Electrical Engineering</ion-select-option>
+        <ion-select-option value="27 School of Physical Sciences">27 School of Physical Sciences</ion-select-option>
+        <ion-select-option value="28 School of Agriculture">28 School of Agriculture</ion-select-option>
+        <ion-select-option value="33 School of Electronics & Electrical Engineering">33 School of Electronics & Electrical Engineering</ion-select-option>
+        <ion-select-option value="34 School of Computer Science & Engineering">34 School of Computer Science & Engineering</ion-select-option>
+        <ion-select-option value="35 Shanti Devi Mittal Auditorium">35 Shanti Devi Mittal Auditorium</ion-select-option>
+        <ion-select-option value="36 School of Electronics & Electrical Engineering">36 School of Electronics & Electrical Engineering</ion-select-option>
+        <ion-select-option value="38 School of Computer Application / Research Center">38 School of Computer Application / Research Center</ion-select-option>
+        <ion-select-option value="55 School of Mechanical Engineering">55 School of Mechanical Engineering</ion-select-option>
+        <ion-select-option value="56 School of Civil Engineering">56 School of Civil Engineering</ion-select-option>
+        <ion-select-option value="57 School of Polytechnic">57 School of Polytechnic</ion-select-option>
+      </ion-select>
+      
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Profile Picture</ion-label>
+      <input type="file" (change)="onFileChange($event)" />
+    </ion-item>
+    <ion-button type="submit" expand="full">Update Profile</ion-button>
+  </form>
+  <ion-img *ngIf="profilePictureUrl" [src]="profilePictureUrl"></ion-img>
+</ion-content>

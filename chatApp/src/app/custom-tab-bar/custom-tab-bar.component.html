@@ -1,0 +1,10 @@
+<ion-toolbar>
+  <ion-buttons slot="start">
+    <ion-button (click)="selectTab('home')" [color]="activeTab === 'home' ? 'primary' : 'medium'">
+      Home
+    </ion-button>
+    <ion-button (click)="selectTab('about')" [color]="activeTab === 'about' ? 'primary' : 'medium'">
+      About
+    </ion-button>
+  </ion-buttons>
+</ion-toolbar>

@@ -1,0 +1,36 @@
+<ion-content>
+  <div *ngIf="currentUser" class="profile-container">
+    <div class="profile-info">
+      <div class="profile-picture-container">
+        <img [src]="getProfilePictureUrl()" alt="Profile Picture" class="profile-picture">
+        <ion-icon name="camera" class="edit-icon" *ngIf="isEditing" (click)="fileInput.click()"></ion-icon>
+        <input type="file" (change)="onFileSelected($event)" style="display: none;" #fileInput>
+      </div>
+      
+      <div class="profile-details">
+        <h2>{{ currentUser.fullName }}</h2>
+        <p>{{ currentUser.username }}</p>
+      </div>
+    </div>
+    <div class="edit-button">
+      <ion-button expand="full" *ngIf="!isEditing" (click)="enableEdit()">Edit Profile</ion-button>
+    </div>
+  </div>
+
+  <form *ngIf="isEditing" [formGroup]="profileForm" (ngSubmit)="onSubmit()" class="edit-form">
+    <ion-item>
+      <ion-label position="floating">Full Name</ion-label>
+      <ion-input formControlName="fullName"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">College</ion-label>
+      <ion-input formControlName="college"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Department</ion-label>
+      <ion-input formControlName="department"></ion-input>
+    </ion-item>
+    <ion-button expand="full" type="submit" [disabled]="!profileForm.valid">Save</ion-button>
+    <ion-button expand="full" color="danger" (click)="cancelEdit()">Cancel</ion-button>
+  </form>
+</ion-content>

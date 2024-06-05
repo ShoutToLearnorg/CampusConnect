@@ -1,0 +1,47 @@
+<ion-header>
+  <ion-toolbar color="light">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-avatar slot="start">
+      <img [src]="recipientProfileIcon" class="profile-image">
+      <span class="online-dot" *ngIf="recipientStatus === 'Online'"></span>
+    </ion-avatar>
+    <div class="user-info">
+      <div>{{ recipientFullName }}</div>
+      <div class="status">
+        <span class="online-dot" *ngIf="recipientStatus === 'Online'"></span>
+        {{ recipientStatus }}
+      </div>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content #content>
+  <div class="chat-history messages-container">
+    <div *ngFor="let msg of messages" [ngClass]="{'sent': msg.sender === currentUser.username, 'received': msg.sender !== currentUser.username}">
+      <ion-avatar *ngIf="msg.sender !== currentUser.username">
+        <img [src]="getUserProfileIcon(msg.sender)" class="profile-image">
+      </ion-avatar>
+      <div class="message-popover" [ngClass]="{'popover-right': msg.sender === currentUser.username, 'popover-left': msg.sender !== currentUser.username}">
+        <div class="message-content">
+          <div class="sender-info">
+            <span class="sender-name">{{'@ '+ msg.sender }}</span>
+          </div>
+          <p>{{ msg.message }}</p>
+          <div class="message-time">{{ msg.timestamp | date:'shortTime' }}</div>
+        </div>
+      </div>
+      <ion-avatar *ngIf="msg.sender === currentUser.username">
+        <img [src]="getUserProfileIcon(currentUser.username)" class="profile-image">
+      </ion-avatar>
+    </div>
+  </div>
+</ion-content>
+
+<ion-footer class="chat-input">
+  <ion-textarea placeholder="Type your message here" [(ngModel)]="newMessage" autoGrow="true"></ion-textarea>
+  <ion-button (click)="sendMessage()" shape="round" color="light" class="send-button">
+    <ion-icon name="send-outline"></ion-icon>
+  </ion-button>
+</ion-footer>

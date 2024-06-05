@@ -1,0 +1,155 @@
+ion-header, ion-toolbar {
+  background-color: #F86F03; /* Custom header color */
+}
+
+.chat-history {
+  padding: 10px;
+  display: flex;
+  color: #000;
+  flex-direction: column;
+}
+
+.chat-input {
+  display: flex;
+  align-items: center;
+  border-top: 1px solid #F86F03; /* Sober shade of the main color */
+  border-radius: 20px;
+  padding: 10px;
+  background-color: #333; /* Darker input background for contrast */
+}
+
+ion-textarea {
+  flex: 1;
+  margin-right: 10px;
+  background-color: #444; /* Dark input field background */
+  border-radius: 10px;
+  padding-left: 10px;
+  color: #fff; /* White text color */
+}
+
+ion-textarea::placeholder {
+  color: #ccc; /* Lighter text color for placeholder */
+}
+
+.send-button {
+  flex-shrink: 0;
+  color: #fff; /* White icon color */
+}
+
+.sent, .received {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.sent {
+  justify-content: flex-end;
+}
+
+.received {
+  justify-content: flex-start;
+}
+
+.profile-image {
+  width: 40px; 
+  height: 40px; 
+  border-radius: 50%;
+  border: 2px solid #F86F03; /* Border to match theme color */
+}
+
+ion-avatar {
+  width: 40px;
+  height: 40px;
+  position: relative; /* To position the online dot */
+}
+
+.online-dot {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 10px;
+  height: 10px;
+  background-color: #4CAF50; /* Green color */
+  border-radius: 50%;
+  border: 2px solid #fff; /* White border to make it more visible */
+}
+
+.message-popover {
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+  max-width: 80%;
+  position: relative;
+}
+
+.popover-left {
+  background-color: #fff5e6;
+  border: 1px solid #ffd9b3;
+  text-align: left;
+  margin-left: 0.5%;
+}
+
+.popover-right {
+  background-color: #e6f7ff;
+  border: 1px solid #b3e0ff;
+  text-align: right;
+  margin-right: 0.5%;
+}
+
+.message-content {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.sender-info {
+  margin-bottom: 5px;
+}
+
+.popover-right .sender-info {
+  color: #666;
+  align-self: flex-end;
+}
+
+.sender-name {
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  color: #666;
+}
+
+.message-time {
+  font-size: 0.8em;
+  color: #666;
+  align-self: flex-end; /* Align timestamp to the end of the message */
+  margin-top: 5px; /* Add margin to separate timestamp from the message */
+}
+
+p {
+  margin: 0;
+  white-space: pre-wrap; /* Respect line breaks in message text */
+}
+
+.user-info {
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 10px;
+}
+
+.user-info div {
+  margin: 0;
+  padding: 0;
+}
+
+.user-info .status {
+  font-size: 0.8em;
+  color: var(--ion-color-medium);
+  display: flex;
+  align-items: center;
+}
+
+ion-content {
+  overflow: auto;
+}
+
+ion-content::-webkit-scrollbar {
+  display: none;
+}

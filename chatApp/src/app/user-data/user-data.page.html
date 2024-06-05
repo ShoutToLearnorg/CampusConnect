@@ -1,0 +1,50 @@
+<ion-header>
+  <ion-toolbar color="warning">
+    <ion-title>User Data</ion-title>
+    <ion-buttons slot="end">
+      <ion-button *ngIf="isAccountHolder" (click)="logout()">
+        Logout
+      </ion-button>
+      <ion-button *ngIf="isAccountHolder" [routerLink]="['/edit-profile']">
+        Edit Profile
+      </ion-button>
+      <ion-button *ngIf="!isLoggedIn" routerLink="/register">
+        Login
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="profile-container">
+    <div class="profile-image-wrapper">
+      <ion-avatar class="profile-avatar">
+        <img [src]="profilePictureUrl" *ngIf="profilePictureUrl" alt="Profile Picture" />
+      </ion-avatar>
+    </div>
+
+    <div class="profile-details-wrapper">
+      <ion-card-title class="profile-name">{{userData.fullName}}</ion-card-title>
+      <p class="profile-username">{{userData.username}}</p>
+
+      <ion-list lines="none">
+        <ion-item>
+          <ion-icon name="mail-outline" color="warning"></ion-icon>
+          <ion-label>Email:</ion-label>
+          <ion-text color="dark">{{userData.email}}</ion-text>
+        </ion-item>
+        <ion-item>
+          <ion-icon name="school-outline" color="warning"></ion-icon>
+          <ion-label>Department:</ion-label>
+          <ion-text color="dark">{{userData.department}}</ion-text>
+        </ion-item>
+      </ion-list>
+    </div>
+  </div>
+  
+  <div class="send-message-wrapper" *ngIf="!isAccountHolder">
+    <ion-button color="secondary" (click)="openSendMessagePage(username)">
+      Send Message
+    </ion-button>
+  </div>
+</ion-content>
