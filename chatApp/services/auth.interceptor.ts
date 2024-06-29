@@ -19,7 +19,7 @@ export class AuthInterceptor implements HttpInterceptor {
         }
         console.log('Cloned request with token:', clonedReq);
         return next.handle(clonedReq).pipe(
-          catchError((error) => {
+          catchError((error: HttpErrorResponse) => {
             return this.handleError(error);
           })
         );
@@ -27,16 +27,9 @@ export class AuthInterceptor implements HttpInterceptor {
     );
   }
 
-  private handleError(error: any): Observable<never> {
-    if (error instanceof HttpErrorResponse) {
-      // Handle HTTP errors
-      console.error('HTTP error occurred:', error);
-      // You can modify the error message, log additional info, etc.
-    } else {
-      // Handle other types of errors
-      console.error('Non-HTTP error occurred:', error);
-    }
-    // Return an observable that emits the error
-    return throwError(error);
+  private handleError(error: HttpErrorResponse): Observable<never> {
+    console.error('HTTP error occurred:', error);
+    // Additional error handling logic
+    return throwError(() => new Error('An unexpected error occurred. Please try again later.'));
   }
 }

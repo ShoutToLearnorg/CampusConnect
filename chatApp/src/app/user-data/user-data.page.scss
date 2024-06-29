@@ -1,67 +1,88 @@
 .profile-container {
-    display: flex; /* Arrange elements side-by-side */
-    align-items: center; /* Vertically align content */
-    padding: 20px;
-    border-radius: 10px; /* Rounded corners for softness */
-    background-color: #f0f8ff; /* Light background with a calming hue */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  display: flex; /* Arrange elements side-by-side */
+  align-items: center; /* Vertically align content */
+  padding: 20px;
+  border-radius: 10px; /* Rounded corners for softness */
+  background-color: #f0f8ff; /* Light background with a calming hue */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  flex-wrap: wrap; /* Allow elements to wrap on small screens */
+}
+
+.profile-image-wrapper {
+  position: relative; /* Needed for gradient overlay */
+  width: 150px; /* Adjust image size as needed */
+  height: 150px;
+  border-radius: 50%; /* Make avatar circular */
+  overflow: hidden; /* Prevent image overflow */
+  flex-shrink: 0; /* Prevent the image from shrinking */
+}
+
+.profile-avatar {
+  width: 100%; /* Fill the wrapper */
+  height: 100%; /* Fill the wrapper */
+  object-fit: cover; /* Ensure image fills the space */
+}
+
+.gradient-overlay {
+  position: absolute; /* Overlap the image */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0) 70%); /* Subtle transparent gradient */
+  opacity: 0.3; /* Adjust opacity for desired effect */
+}
+
+.profile-details-wrapper {
+  flex: 1; /* Allow details to fill remaining space */
+  margin-left: 20px; /* Spacing between image and details */
+  min-width: 200px; /* Ensure a minimum width for the details */
+}
+
+.profile-name {
+  margin-top: 10px;
+  font-weight: bold;
+  font-size: 18px;
+  color: #333; /* Calming text color */
+}
+
+.profile-username {
+  margin-top: 5px;
+  color: #666;
+}
+
+.profile-details ion-text {
+  font-weight: normal; /* Regular font weight for details */
+}
+
+.profile-details ion-icon {
+  margin-right: 5px; /* Spacing between icon and label */
+}
+
+.edit-button-wrapper {
+  text-align: center;
+  margin-top: 24px;
+}
+
+.send-message-wrapper {
+  display: flex;
+  justify-content: center; /* Centers the button horizontally */
+  margin-top: 16px; /* Optional: Adds some space above the button */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .profile-container {
+    flex-direction: column; /* Stack elements vertically on small screens */
+    align-items: center; /* Center items on small screens */
   }
-  
+
   .profile-image-wrapper {
-    position: relative; /* Needed for gradient overlay */
-    width: 150px; /* Adjust image size as needed */
-    height: 150px;
-    border-radius: 50%; /* Make avatar circular */
-    overflow: hidden; /* Prevent image overflow */
+    margin-bottom: 20px; /* Add space below the image */
   }
-  
-  .profile-avatar {
-    width: 100%; /* Fill the wrapper */
-    height: 100%; /* Fill the wrapper */
-    object-fit: cover; /* Ensure image fills the space */
-  }
-  
-  .gradient-overlay {
-    position: absolute; /* Overlap the image */
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0) 70%); /* Subtle transparent gradient */
-    opacity: 0.3; /* Adjust opacity for desired effect */
-  }
-  
+
   .profile-details-wrapper {
-    flex: 1; /* Allow details to fill remaining space */
-    margin-left: 20px; /* Spacing between image and details */
+    margin-left: 0; /* Remove left margin */
+    text-align: center; /* Center align text */
   }
-  
-  .profile-name {
-    margin-top: 10px;
-    font-weight: bold;
-    font-size: 18px;
-    color: #333; /* Calming text color */
-  }
-  
-  .profile-username {
-    margin-top: 5px;
-    color: #666;
-  }
-  
-  .profile-details ion-text {
-    font-weight: normal; /* Regular font weight for details */
-  }
-  
-  .profile-details ion-icon {
-    margin-right: 5px; /* Spacing between icon and label */
-  }
-  .edit-button-wrapper {
-    text-align: center;
-    margin-top: 24px;
-  }
-  .send-message-wrapper {
-    display: flex;
-    justify-content: center; /* Centers the button horizontally */
-    margin-top: 16px; /* Optional: Adds some space above the button */
-  }
-  
+}

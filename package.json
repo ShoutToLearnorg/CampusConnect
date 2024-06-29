@@ -1,0 +1,6 @@
+{
+  "devDependencies": {
+    "@ionic/cli": "^7.2.0",
+    "ionic": "^5.4.16"
+  }
+}

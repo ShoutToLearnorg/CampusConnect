@@ -6,7 +6,7 @@
     <ion-tab-button tab="allusers">
       <ion-icon name="people"></ion-icon>
     </ion-tab-button>
-    <ion-tab-button [routerLink]="['/', username]">
+    <ion-tab-button (click)="goToUserProfile()">
       <ion-icon name="person-circle"></ion-icon>
     </ion-tab-button>
   </ion-tab-bar>

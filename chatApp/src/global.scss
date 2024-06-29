@@ -40,3 +40,34 @@
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 @import "@ionic/angular/css/palettes/dark.system.css";
+
+
+:root {
+    --ion-color-primary:#F86F03;
+    --card-bg-color: #fff;
+    --card-shadow-color: rgba(0, 0, 0, 0.1);
+  }
+  
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --card-bg-color: #1e1e1e;
+      --card-shadow-color: rgba(255, 255, 255, 0.1);
+    }
+  }
+
+
+  ion-modal {
+    align-items: flex-end; /* Align the modal at the bottom */
+    justify-content: flex-end; /* Align the modal at the bottom */
+    --box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    --bottom: 0; /* Ensure the bottom is at the screen bottom */
+    --margin-bottom: 0; /* Remove any bottom margin */
+    --top: auto; /* Override any top positioning */
+  }
+  
+  
+  ion-modal ion-toolbar {
+    --background: rgb(14 116 144);
+    --color: white;
+  }
+  

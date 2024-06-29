@@ -173,14 +173,24 @@ export class RegisterPage implements OnInit, AfterViewInit {
       try {
         const response = await this.authService.verifyOtp(otpData).toPromise();
         await loading.dismiss();  // Hide loading indicator
+  
+        // Assuming the response contains the token and user details
+        await this.authService.setToken(response.token);
+        await this.authService.setCurrentUser({ username: response.username });
+  
         this.showToast('Registration successful!');
-        
+  
         // Construct the URL with the username
         const username = this.registerForm.value.username;
-        const url = `http:localhost:8100/${username}`; // Adjust this if you have a base URL
-        
-        // Navigate to the URL
-        this.router.navigate([url]);
+        const url = `/${username}`; // Adjust this if you have a base URL
+  
+        // Login user after successful OTP verification
+        this.email = this.registerForm.value.email;  // Set the email for login
+        this.password = this.registerForm.value.password;  // Set the password for login
+        await this.login();  // Call the login method to log in the user
+  
+        // Navigate to the home page after login
+        this.router.navigate(['/${username']);
       } catch (error) {
         await loading.dismiss();  // Hide loading indicator
         console.error('Error during OTP verification:', error);
@@ -190,6 +200,8 @@ export class RegisterPage implements OnInit, AfterViewInit {
       this.showToast('Please enter the OTP.');
     }
   }
+  
+  
   
   
 
@@ -224,5 +236,10 @@ export class RegisterPage implements OnInit, AfterViewInit {
     await loading.present();
     return loading;
   }
+
+  goBackToRegister() {
+    this.otpSent = false;
+  }
+  
 
 }

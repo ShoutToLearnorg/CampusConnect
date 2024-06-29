@@ -25,7 +25,7 @@
             <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
           </div>
         </form>
-        
+
         <form *ngIf="!otpSent" [formGroup]="registerForm" class="sign-up-form" (ngSubmit)="onRegister()">
           <h2 class="title">Sign up</h2>
           <div class="input-field">
@@ -51,7 +51,7 @@
             </div>
           </div>
           <div *ngIf="registerForm.get('fullName')?.hasError('required') && registerForm.get('fullName')?.touched" class="error-message">Full Name is required.</div>
-          
+
           <div class="input-field">
             <i class="fas fa-envelope"></i>
             <div class="form-group">
@@ -79,7 +79,6 @@
             <i class="fas fa-building"></i>
             <div class="form-group">
               <ion-select id="department" formControlName="department" class="custom-select" interface="popover" placeholder="Select Your Department">
-      
                 <ion-select-option value="" disabled selected hidden>Select Your Department</ion-select-option>
                 <ion-select-option value="03A School of International Studies">03A School of International Studies</ion-select-option>
                 <ion-select-option value="03B Lovely Institute of Technology (Pharmacy)">03B Lovely Institute of Technology (Pharmacy)</ion-select-option>
@@ -116,8 +115,11 @@
             <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
           </div>
         </form>
-        
+
         <form *ngIf="otpSent" [formGroup]="otpForm" (ngSubmit)="onVerifyOtp()">
+          <ion-button fill="clear" (click)="goBackToRegister()">
+            <ion-icon name="arrow-back-outline"></ion-icon> Back
+          </ion-button>
           <h2 class="title">Verify OTP</h2>
           <div class="input-field">
             <i class="fas fa-envelope"></i>
@@ -129,7 +131,7 @@
         </form>
       </div>
     </div>
-    
+
     <div class="panels-container">
       <div class="panel left-panel">
         <div class="content">

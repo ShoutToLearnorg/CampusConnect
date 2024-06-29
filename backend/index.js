@@ -7,8 +7,13 @@ const connectDB = require('./config/db');
 const middleware = require('./config/middleware');
 const userRoutes = require('./routes/userRoutes');
 const messageRoutes = require('./routes/messageRoutes');
+const communityRoutes = require('./routes/communityRoutes')
 const tabsRouter = require('./routes/tabRoutes');
 const User = require('./models/userModel');
+const commentRoutes = require('./routes/comments');
+const communityPost =require('./models/communityPosts')
+const BlogPost = require('./models/comments');
+
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -20,8 +25,10 @@ middleware(app);
 
 app.use('/api/users/', userRoutes);
 app.use('/api/messages', messageRoutes);
+app.use('/api/community', communityRoutes); // Mount the community routes
+app.use('/api/comments', commentRoutes);
+app.use('/api/posts', BlogPost);
 app.use('/tabs', tabsRouter);
-
 const server = http.createServer(app);
 
 const userSockets = {};
@@ -34,6 +41,7 @@ const io = socketIo(server, {
   },
 });
 
+// Inside your socket connection handler
 io.on('connection', (socket) => {
   console.log('New client connected');
 
@@ -60,6 +68,18 @@ io.on('connection', (socket) => {
     }
 
     // Optionally, you can store the message in the database here
+  });
+
+  socket.on('newPost', (post) => {
+    io.emit('postUpdated', post);
+  });
+
+  socket.on('newComment', ({ postId, comment }) => {
+    io.emit('postUpdated', { postId, comment });
+  });
+
+  socket.on('newReply', ({ postId, reply }) => {
+    io.emit('postUpdated', { postId, reply });
   });
 
   socket.on('disconnect', async () => {

@@ -1,0 +1,23 @@
+<!-- reply-item.component.html -->
+<ion-item class="reply-item" lines="none">
+    <ion-avatar slot="start">
+      <img [src]="profilePictures[reply.author] | async">
+    </ion-avatar>
+    <ion-label>
+      <span style="color:#545454; font-size: 0.785rem;">{{ reply.author }}</span>
+      <span style="margin-left: 22px; color:#99A3A4; font-size:12px">{{ reply.date | date: 'MMM d, y' }}</span>
+      <p style="color:#000; font-size: 0.875rem;">{{ reply.content }}</p>
+      <!-- Toggle button for showing replies -->
+      <ion-button fill="clear" (click)="toggleReplies()">
+        {{ reply.showReplies ? 'Hide Replies' : 'View ' + reply.replies.length + ' Replies' }}
+      </ion-button>
+      <ion-button fill="clear" (click)="replyToReply()">Reply</ion-button>
+    </ion-label>
+  </ion-item>
+  <!-- Display replies -->
+  <ng-container *ngIf="reply.showReplies">
+    <ng-container *ngFor="let nestedReply of reply.replies">
+      <app-reply-item [reply]="nestedReply" [post]="post" [parentCommentId]="parentCommentId" [onReply]="onReply"></app-reply-item>
+    </ng-container>
+  </ng-container>
+  

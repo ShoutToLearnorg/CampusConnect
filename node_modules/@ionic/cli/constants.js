@@ -1,0 +1,14 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.COLUMNAR_OPTIONS = exports.MODERN_PROJECT_TYPES = exports.LEGACY_PROJECT_TYPES = exports.PROJECT_TYPES = exports.PROJECT_FILE = exports.ANGULAR_STANDALONE = exports.ASSETS_DIRECTORY = void 0;
+const tslib_1 = require("tslib");
+const chalk_1 = tslib_1.__importDefault(require("chalk"));
+const lodash = tslib_1.__importStar(require("lodash"));
+const path = tslib_1.__importStar(require("path"));
+exports.ASSETS_DIRECTORY = path.resolve(__dirname, 'assets');
+exports.ANGULAR_STANDALONE = 'angular-standalone';
+exports.PROJECT_FILE = process.env['IONIC_CONFIG_FILE'] ?? 'ionic.config.json';
+exports.PROJECT_TYPES = ['angular', exports.ANGULAR_STANDALONE, 'react', 'vue', 'custom', 'vue-vite', 'react-vite'];
+exports.LEGACY_PROJECT_TYPES = [];
+exports.MODERN_PROJECT_TYPES = lodash.difference(exports.PROJECT_TYPES, exports.LEGACY_PROJECT_TYPES);
+exports.COLUMNAR_OPTIONS = { hsep: chalk_1.default.dim('-'), vsep: chalk_1.default.dim('|') };

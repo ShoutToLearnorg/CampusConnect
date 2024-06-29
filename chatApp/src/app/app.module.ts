@@ -21,7 +21,7 @@ const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
   declarations: [
     AppComponent,
     MessagePopoverComponent,
-    UserProfileComponent // Declare the component
+    UserProfileComponent 
   ],
   imports: [
     BrowserModule,

@@ -47,10 +47,22 @@ const routes: Routes = [
     path: 'edit-profile',
     loadChildren: () => import('./edit-profile/edit-profile.module').then(m => m.EditProfilePageModule)
   },
+
+  {
+    path: 'community',
+    loadChildren: () => import('./community/community.module').then( m => m.CommunityPageModule),
+    canActivate: [AuthGuard]
+  },
+  
+
   {
     path: ':username',
     loadChildren: () => import('./user-data/user-data.module').then(m => m.UserDataPageModule),
   },
+  
+  
+
+  
 ];
 
 @NgModule({

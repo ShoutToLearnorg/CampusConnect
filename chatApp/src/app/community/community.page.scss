@@ -1,0 +1,146 @@
+.post-card {
+  padding: 15px;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  background-color: var(--card-bg-color);
+  box-shadow: 0 4px 8px var(--card-shadow-color);
+}
+ion-button {
+  text-transform: none !important;
+}
+.button-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.left-button {
+  align-self: flex-start;
+}
+
+.right-button {
+  margin-left: 4%;
+  align-self: flex-start;
+}
+
+.post-item {
+  width: 100%;
+}
+
+.comment-item {
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.reply-item {
+  width: 100%;
+  padding-left: 40px;
+}
+
+.modal-content {
+  height: 100%;
+  overflow-y: auto;
+}
+
+.liked-icon {
+    color: red;
+  }
+
+
+  .block {
+    width: 100%;
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  ion-modal {
+    --height: 80%;
+  }
+
+  
+
+@media (max-width: 600px) {
+  .post-card {
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  .post-user {
+    font-size: 14px;
+  }
+
+  .post-date,
+  .comment-date,
+  .reply-date {
+    font-size: 10px;
+  }
+
+  .post-message,
+  .comment-content,
+  .reply-content {
+    font-size: 12px;
+  }
+
+  .post-actions {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    padding: 0 16px !important;
+  }
+
+  .post-actions ion-icon,
+  .post-actions span,
+  .post-actions ion-button {
+    margin-right: 8px; /* Adjust margin between icons and buttons */
+  }
+
+  
+
+  .comment-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  
+}
+
+.modal-content {
+  --background: #1e1e1e; /* Adjust to make space for the fixed comment input */
+}
+
+
+
+ion-modal {
+  --height: 100%;
+}
+
+.post-item .ion-button {
+  margin: 0;
+  padding: 0;
+  font-size: 0.785rem;
+}
+
+.reply-item {
+  margin-left: 10px; /* Adjust as needed for indentation */
+}
+
+.comment-item, .reply-item {
+  --padding-start: 0;
+  --inner-padding-end: 0;
+}
+
+
+/* Devices smaller than desktops/laptops (max-width: 1024px) */
+@media (max-width: 1024px) {
+  .new-comment-item {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    z-index: 1000; /* Ensure it's above other content */
+    box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
+  }
+}

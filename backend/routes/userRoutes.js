@@ -46,10 +46,10 @@ router.post('/login', login);
 
 // Routes for authenticated user actions
 router.get('/', authenticateToken, getAllUsers);
-router.get('/:username', authenticateToken, getUserByUsername);
+router.get('/:username', getUserByUsername);
 router.post('/:username/update-profile', authenticateToken, upload.single('profilePicture'), updateProfile);
 router.post('/:username/profile-picture', authenticateToken, upload.single('profilePicture'), updateProfilePicture);
-router.get('/:username/profile-picture', authenticateToken, getProfilePicture);
+router.get('/:username/profile-picture', getProfilePicture);
 router.get('/:username/status', authenticateToken, getUserStatus); 
 
 // Routes for checking availability

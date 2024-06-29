@@ -1,0 +1,170 @@
+<!-- Community Page Template -->
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Posts</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list lines="full">
+    <!-- Create Post Section -->
+    <ion-item>
+      <ion-avatar slot="start">
+        <img [src]="profilePictures[currentUser?.username] | async" *ngIf="currentUser !== undefined">
+      </ion-avatar>
+      <ion-input [(ngModel)]="newPost" placeholder="What's on your mind?"></ion-input>
+      <ion-button (click)="createPost()" color="primary" fill="solid">Post</ion-button>
+    </ion-item>
+
+    <!-- Posts Section -->
+    <ng-container *ngFor="let post of posts; let i = index">
+      <ion-card class="post-card">
+        <!-- Post Header -->
+        <ion-item lines="none">
+          <ion-avatar slot="start">
+            <img [src]="profilePictures[post.user] | async">
+          </ion-avatar>
+          <p><b>{{ post.user }}</b></p>
+          <ion-label slot="end">
+            <p>{{ post.date | relativeDate }}</p>
+          </ion-label>
+        </ion-item>
+
+        <!-- Post Content -->
+        <ion-item class="post-item">
+          <ion-label>
+            <p class="post-message">{{ post.message }}</p>
+          </ion-label>
+        </ion-item>
+
+        <!-- Post Actions -->
+        <ion-item class="post-item" lines="none">
+          <ion-icon [name]="isLiked(post._id) ? 'heart' : 'heart-outline'"
+                    [class.liked-icon]="isLiked(post._id)"
+                    (click)="toggleLike(post)"
+                    class="icon-black"></ion-icon>
+          <span>{{ post.likesCount }}</span>
+          <ion-icon name="chatbubble-outline"
+                    (click)="toggleComments(post)"
+                    class="icon-black" style="margin-left: 20%;"></ion-icon>
+          <span>{{ getTotalCommentsCount(post) }}</span>
+          <ion-button (click)="toggleComments(post)" slot="end" *ngIf="!isMobile">
+            {{ post.showComments ? 'Hide Comments' : 'View Comments' }}
+          </ion-button>
+          <ion-button (click)="setOpen(true, post)" id="open-modal-{{ i }}" expand="block" slot="end" *ngIf="isMobile">
+            View Comments
+          </ion-button>
+        </ion-item>
+
+        <!-- Comments Section for Desktop -->
+        <ion-card-content *ngIf="post.showComments && !isMobile">
+          <ion-item *ngFor="let comment of post.comments" class="post-item comment-item" lines="none">
+            <ion-label>
+              <ion-item class="post-item" lines="none">
+                <ion-avatar slot="start">
+                  <img [src]="profilePictures[comment.author] | async">
+                </ion-avatar>
+                <ion-label>
+                  <span style="color:#545454; font-size: 0.785rem;">{{ comment.author }}</span>
+                  <span style="margin-left: 22px; color:#99A3A4; font-size:12px">{{ comment.date | relativeDate }}</span>
+                  <p>{{ comment.content }}</p>
+                  <!-- Toggle button for showing replies -->
+                  <div class="button-container">
+                    <ion-button class="left-button" fill="clear" (click)="replyToComment(post, comment, [comment._id])">Reply</ion-button>
+                    <ion-button class="right-button" fill="clear" *ngIf="comment.replies.length > 0" (click)="toggleReplies(comment)">
+                      {{ comment.showReplies ? 'Hide Replies' : 'View ' + getTotalRepliesCount(comment.replies) + ' more replies' }}
+                    </ion-button>
+                  </div>
+                </ion-label>
+              </ion-item>
+              <!-- Display replies recursively -->
+              <ng-container *ngIf="comment.showReplies">
+                <ng-container *ngTemplateOutlet="recursiveReplies; context: { $implicit: comment.replies, post: post, path: [comment._id] }"></ng-container>
+              </ng-container>
+            </ion-label>
+          </ion-item>
+
+          <ion-item class="new-comment-item" lines="none">
+            <ion-avatar slot="start">
+              <img [src]="profilePictures[currentUser?.username] | async" *ngIf="currentUser">
+            </ion-avatar>
+            <ion-input [(ngModel)]="post.newComment" placeholder="Write a comment..."></ion-input>
+            <ion-button (click)="addReplyOrComment(post)" color="primary" fill="solid">Send</ion-button>
+          </ion-item>
+        </ion-card-content>
+
+        <ion-modal #modal trigger="open-modal-{{ i }}">
+          <ng-template>
+            <ion-content>
+              <ion-header>
+                <ion-toolbar>
+                  <ion-title class="ion-text-center">Comments</ion-title>
+                  <ion-buttons slot="end">
+                    <ion-button color="light" (click)="modal.dismiss()">Close</ion-button>
+                  </ion-buttons>
+                </ion-toolbar>
+              </ion-header>
+              
+              <ion-card-content>
+                <ion-item *ngFor="let comment of post.comments" class="post-item comment-item" lines="none">
+                  <ion-label>
+                    <ion-item class="post-item" lines="none">
+                      <ion-avatar slot="start">
+                        <img [src]="profilePictures[comment.author] | async">
+                      </ion-avatar>
+                      <ion-label>
+                        <span style="color:#545454; font-size: 0.785rem;"><a (click)="navigateToUserProfile(comment.author)">{{ comment.author }}</a></span>
+                        <span style="margin-left: 22px; color:#99A3A4; font-size:12px">{{ comment.date | relativeDate }}</span>
+                        <p>{{ comment.content }}</p>
+                        <ion-button fill="clear" (click)="toggleReplies(comment)">
+                          {{ comment.showReplies ? 'Hide Replies' : 'View ' + comment.replies.length + ' Replies' }}
+                        </ion-button>
+                        <ion-button fill="clear" (click)="replyToComment(post, comment, [comment._id])">Reply</ion-button>
+                      </ion-label>
+                    </ion-item>
+                    <ng-container *ngIf="comment.showReplies">
+                      <ng-container *ngTemplateOutlet="recursiveReplies; context: { $implicit: comment.replies, post: post, path: [comment._id] }"></ng-container>
+                    </ng-container>
+                  </ion-label>
+                </ion-item>
+              </ion-card-content>
+            </ion-content>
+            
+            <ion-footer class="ion-no-border" *ngIf="isModalActive && activePost">
+              <ion-toolbar>
+                <ion-item>
+                  <ion-avatar slot="start">
+                    <img [src]="profilePictures[currentUser?.username] | async" *ngIf="currentUser">
+                  </ion-avatar>
+                  <ion-input [(ngModel)]="activePost.newComment" placeholder="Write a comment..."></ion-input>
+                  <ion-button (click)="addReplyOrComment(activePost)" color="primary" fill="solid">Send</ion-button>
+                </ion-item>
+              </ion-toolbar>
+            </ion-footer>
+          </ng-template>
+        </ion-modal>
+        
+      </ion-card>
+    </ng-container>
+  </ion-list>
+</ion-content>
+
+<ng-template #recursiveReplies let-replies let-post="post" let-path="path">
+  <ng-container *ngFor="let reply of replies">
+    <ion-item class="post-item reply-item" lines="none">
+      <ion-avatar slot="start">
+        <img [src]="profilePictures[reply.author] | async">
+      </ion-avatar>
+      <ion-label>
+        <span style="color:#545454; font-size: 0.785rem;">{{ reply.author }}</span>
+        <span style="margin-left: 22px; color:#99A3A4; font-size:12px">{{ reply.date | relativeDate }}</span>
+        <p>{{ reply.content }}</p>
+        <ion-button fill="clear" (click)="replyToComment(post, reply, path.concat(reply._id))">Reply</ion-button>
+      </ion-label>
+    </ion-item>
+    <!-- Nested replies -->
+    <ng-container *ngIf="reply.replies && reply.replies.length > 0">
+      <ng-container *ngTemplateOutlet="recursiveReplies; context: { $implicit: reply.replies, post: post, path: path.concat(reply._id) }"></ng-container>
+    </ng-container>
+  </ng-container>
+</ng-template>

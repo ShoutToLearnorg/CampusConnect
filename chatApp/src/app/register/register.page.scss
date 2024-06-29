@@ -428,3 +428,15 @@ form.sign-in-form {
   max-width: 380px;
   width: 100%;
 }
+
+.otp-header {
+  display: flex;
+  align-items: center;
+}
+
+.back-arrow {
+  cursor: pointer;
+  color: #000;
+  font-size: 24px;
+  margin-right: 10px;
+}
