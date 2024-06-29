@@ -38,6 +38,11 @@
 ## Demo
 A live demo of the application UI only (as I have no budget to deploy it) is available at: [Campus Connect Demo](https://lpucampusconnect.netlify.app/register)
 
+
+https://github.com/ShoutToLearnorg/CampusConnect/assets/98154274/bb6f1bcf-a9c5-4e21-83f0-520bcd36e73c
+
+
+
 ## Contributing
 
 Contributions are welcome! If you have any suggestions, improvements, or bug fixes, feel free to open an issue or submit a pull request.
