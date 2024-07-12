@@ -1,30 +1,42 @@
-# Use the official Node.js image as the base image
+# Stage 1: Build the Angular frontend
+FROM node:18 as build-frontend
+
+# Set the working directory inside the container
+WORKDIR /app/frontend
+
+# Copy package.json and package-lock.json to the working directory
+COPY frontend/package*.json ./
+
+# Install the dependencies
+RUN npm install
+RUN npm install -g @angular/cli
+
+# Copy the rest of the frontend application code
+COPY chatApp/ .
+
+# Build the Angular app for production
+RUN ng build --prod
+
+# Stage 2: Set up the backend with the built frontend
 FROM node:14
 
 # Set the working directory inside the container
 WORKDIR /app
 
 # Copy package.json and package-lock.json to the working directory
-COPY package*.json ./
+COPY backend/package*.json ./
 
 # Install the dependencies
-RUN npm install -g @angular/cli
 RUN npm install
 
-# Copy the rest of the application code to the working directory
-COPY . .
+# Copy the rest of the backend application code
+COPY backend/ .
 
-# Build the Angular app for production
-RUN ng build --prod
+# Copy the application files into the working directory
+COPY ./app
 
-# Install an HTTP server to serve the Angular app
-RUN npm install -g http-server
+# Expose the port that the backend application will run on
+EXPOSE 3000
 
-# Set the working directory to the build output directory
-WORKDIR /app/dist/your-angular-app-name
-
-# Expose the port that the HTTP server will run on
-EXPOSE 8080
-
-# Start the HTTP server
-CMD ["http-server", "-p", "8080"]
+# Start the backend application
+CMD ["npm", "start"]
