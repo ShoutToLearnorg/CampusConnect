@@ -5,14 +5,14 @@ FROM node:18 as build-frontend
 WORKDIR /chatApp
 
 # Copy package.json and package-lock.json to the working directory
-COPY frontend/package*.json ./
+COPY chatApp/package*.json ./
 
 # Install the dependencies
 RUN npm install
 RUN npm install -g @angular/cli
 
 # Copy the rest of the frontend application code
-COPY frontend/ .  # Ensure this copies the correct frontend directory
+COPY chatApp/ .  # Ensure this copies the correct frontend directory
 
 # Build the Angular app for production
 RUN ng build --prod
