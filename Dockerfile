@@ -2,7 +2,7 @@
 FROM node:18 as build-frontend
 
 # Set the working directory inside the container
-WORKDIR /app/frontend
+WORKDIR /chatApp
 
 # Copy package.json and package-lock.json to the working directory
 COPY frontend/package*.json ./
@@ -21,7 +21,7 @@ RUN ng build --prod
 FROM node:14
 
 # Set the working directory inside the container
-WORKDIR /app
+WORKDIR /backend
 
 # Copy package.json and package-lock.json to the working directory
 COPY backend/package*.json ./
@@ -32,8 +32,8 @@ RUN npm install
 # Copy the rest of the backend application code
 COPY backend/ .
 
-# Copy the application files into the working directory
-COPY ./app
+# Copy the built frontend from the previous stage
+COPY chatApp/app
 
 # Expose the port that the backend application will run on
 EXPOSE 3000
