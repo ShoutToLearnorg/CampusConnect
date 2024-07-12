@@ -5,7 +5,7 @@ FROM node:18 as build-frontend
 WORKDIR /chatApp
 
 # Copy package.json and package-lock.json to the working directory
-COPY frontend/package*.json ./
+COPY chatApp/package*.json ./
 
 # Install the dependencies
 RUN npm install
